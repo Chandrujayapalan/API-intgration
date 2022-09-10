@@ -1,0 +1,33 @@
+.product{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+.image{
+    background-image: url("../src/assests/register.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height:100vh;
+}
+.top{
+    padding-top: 10%;
+}
+.login{
+    margin-right: 170vh;
+}
+.reg{
+    margin-right: 160vh;
+}
+.cart{
+    height: 30px;
+    width: 30px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}
