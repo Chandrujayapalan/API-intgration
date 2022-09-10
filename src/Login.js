@@ -181,9 +181,9 @@ function Login() {
             </button>
 
           </div>
-          <div className="text-center top">
+          <div className=" d-flex justify-content-between">
             {
-              itemName.map(a => a)
+              itemName.map(a => <p>{a}</p>)
             }
           </div>
 
