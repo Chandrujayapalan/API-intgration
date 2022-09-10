@@ -183,7 +183,8 @@ function Login() {
           </div>
           <div className=" d-flex justify-content-between">
             {
-              itemName.map(a => <p>{a}</p>)
+              itemName.map(a => 
+              <p>{a}</p>)
             }
           </div>
 
