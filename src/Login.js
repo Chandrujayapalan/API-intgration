@@ -19,7 +19,7 @@ function Login() {
   const [submit, setSubmit] = useState(false);
   const [datas, setData] = useState([]);
   const [items, setItemss] = useState([]);
-
+  const [itemName, setItemName] = useState([]);
   const image = [
     {
       img: laptop,
@@ -91,40 +91,27 @@ function Login() {
         setData(a);
       });
   };
-  const handlePlace = () =>{
-
-        let late = {
+  const handlePlace = () => {
+    let late = {
       items: items,
-      
+      date: "2022-06-29"
     };
-    console.log(late)
+    console.log(late, "kjfkhahdkjfhdhjd")
     fetch("http://54.174.247.198:9000/api/orderplace", {
       method: "POST",
-      headers: { Authorization: localStorage.getItem("Authorization") },
+      headers: { Authorization: localStorage.getItem("Authorization"), "Content-Type": "application/json" },
       body: JSON.stringify(late),
-    }).then((response) => response.json()).then((data)=> {
-      console.log(data ,"adsa")
+
     })
+      .then((response) => response.json()).then((data) => {
+        console.log(data, "adsa")
+      })
   }
   const addCart = (e) => {
+    // console.log(e._id, "asjgasdgasj")
 
-    setItemss(i => [...i,])
-    // console.log(e,"adfdasf")
-    // let itemsa = datas?.map(a => a._id)
- 
-    // console.log(itemsa,"Afadskfjsdfkjds")
-    // let late = {
-    //   items: itemsa,
-      
-    // };
-    // console.log(late)
-    // fetch("http://54.174.247.198:9000/api/orderplace", {
-    //   method: "POST",
-    //   headers: { Authorization: localStorage.getItem("Authorization") },
-    //   body: JSON.stringify(late),
-    // }).then((response) => response.json()).then((data)=> {
-    //   console.log(data ,"adsa")
-    // })
+    setItemss(i => [...i, e._id])
+    setItemName(i => [...i, e.productsName])
   };
 
   return (
@@ -171,7 +158,7 @@ function Login() {
         <div>
           <div>Welcome:{userName}</div>
           <div className="product">
-            {datas?.map((d,i) => (
+            {datas?.map((d, i) => (
               <div key={i}>
                 <img src={d.image} alt="" width="100" height="100"></img>
                 <div className="d-flex justify-content-between">
@@ -181,19 +168,26 @@ function Login() {
                   </div>
                   <BsFillPlusSquareFill
                     className="mt-3"
-                    key={i}
-                    onClick={(e) => addCart(e.target.value)}
+                    key={d._id}
+                    onClick={() => addCart(d)}
                   />
                 </div>
               </div>
             ))}
           </div>
-          <div className="text-center top"> 
+          <div className="text-center top">
             <button onClick={handlePlace} className="btn btn-primary">
               Place Oder
-            </button> 
-            
-        </div>
+            </button>
+
+          </div>
+          <div className="text-center top">
+            {
+              itemName.map(a => a)
+            }
+          </div>
+
+
         </div>
       )}
     </div>
