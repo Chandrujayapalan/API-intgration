@@ -10,6 +10,8 @@ import "./Login.css";
 import { BsFillPlusSquareFill } from "react-icons/bs";
 
 function Login() {
+  let totalPrice = 0
+
   const [userName, setName] = useState("");
   const [nameerr, setNameError] = useState("");
   const [passerr, setPassError] = useState("");
@@ -20,6 +22,8 @@ function Login() {
   const [datas, setData] = useState([]);
   const [items, setItemss] = useState([]);
   const [itemName, setItemName] = useState([]);
+  const [orders, setOrder] = useState([]);
+
   const image = [
     {
       img: laptop,
@@ -103,15 +107,13 @@ function Login() {
       body: JSON.stringify(late),
 
     })
-      .then((response) => response.json()).then((data) => {
-        console.log(data, "adsa")
-      })
+      .then((response) => response.json()).then((data) => setOrder(data))
   }
   const addCart = (e) => {
     // console.log(e._id, "asjgasdgasj")
 
     setItemss(i => [...i, e._id])
-    setItemName(i => [...i, e.productsName])
+    setItemName(i => [...i, e])
   };
 
   return (
@@ -181,10 +183,16 @@ function Login() {
             </button>
 
           </div>
-          <div className=" d-flex justify-content-between">
+          <div className=" justify-content-between">
             {
+
               itemName.map(a => 
-              <p>{a}</p>)
+                <div>
+                  <p>{a.productsName} : {a.productPrice}</p>
+                  <p> Total  : {totalPrice += a.productPrice} </p>
+
+                </div>
+          )
             }
           </div>
 
