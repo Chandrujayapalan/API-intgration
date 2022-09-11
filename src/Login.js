@@ -16,12 +16,13 @@ function Login() {
   const [nameerr, setNameError] = useState("");
   const [passerr, setPassError] = useState("");
   const [password, setPassword] = useState("");
-  // const [date, setDate] = useState("");
+  const [date, setDate] = useState("");
 
   const [submit, setSubmit] = useState(false);
   const [datas, setData] = useState([]);
   const [items, setItemss] = useState([]);
   const [itemName, setItemName] = useState([]);
+  // console.log(items,"asd")
   const [orders, setOrder] = useState([]);
 
   const image = [
@@ -96,9 +97,10 @@ function Login() {
       });
   };
   const handlePlace = () => {
+
     let late = {
       items: items,
-      date: "2022-06-29"
+      date: date
     };
     console.log(late, "kjfkhahdkjfhdhjd")
     fetch("http://54.174.247.198:9000/api/orderplace", {
@@ -112,7 +114,8 @@ function Login() {
   const addCart = (e) => {
     // console.log(e._id, "asjgasdgasj")
 
-    setItemss(i => [...i, e._id])
+    setItemss(i =>[...i , e._id])     
+
     setItemName(i => [...i, e])
   };
 
@@ -176,7 +179,10 @@ function Login() {
                 </div>
               </div>
             ))}
+
           </div>
+          <input type="date" onChange={(e) => setDate(e.target.value)}></input>
+
           <div className="text-center top">
             <button onClick={handlePlace} className="btn btn-primary">
               Place Oder
@@ -186,19 +192,28 @@ function Login() {
           <div className=" justify-content-between">
             {
 
-              itemName.map(a => 
+              itemName.map(a =>
                 <div>
                   <p>{a.productsName} : {a.productPrice}</p>
                   <p> Total  : {totalPrice += a.productPrice} </p>
 
                 </div>
-          )
+              )
             }
           </div>
 
 
         </div>
       )}
+      {/* <div>
+{items && (
+  orders.map(b=>
+    <div>
+      <p>{b.items}</p>
+        </div>)
+)}
+​
+      </div> */}
     </div>
   );
 }
