@@ -7,22 +7,21 @@ import slipper from "../src/assests/slipper.jpg";
 import spoon from "../src/assests/spoon.jpg";
 import watch from "../src/assests/watch.jpg";
 import "./Login.css";
+import Order from './order'
 import { BsFillPlusSquareFill } from "react-icons/bs";
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 
 function Login() {
   let totalPrice = 0
-
   const [userName, setName] = useState("");
   const [nameerr, setNameError] = useState("");
   const [passerr, setPassError] = useState("");
   const [password, setPassword] = useState("");
   const [date, setDate] = useState("");
-
   const [submit, setSubmit] = useState(false);
   const [datas, setData] = useState([]);
   const [items, setItemss] = useState([]);
   const [itemName, setItemName] = useState([]);
-  // console.log(items,"asd")
   const [orders, setOrder] = useState([]);
 
   const image = [
@@ -79,8 +78,7 @@ function Login() {
         } else {
           setSubmit(true);
         }
-
-        localStorage.setItem("Authorization", `Bearer ${data.data.token}`);
+       localStorage.setItem("Authorization", `Bearer ${data.data.token}`);
       });
 
     fetch("http://54.174.247.198:9000/api/listproduct", {
@@ -114,7 +112,7 @@ function Login() {
   const addCart = (e) => {
     // console.log(e._id, "asjgasdgasj")
 
-    setItemss(i =>[...i , e._id])     
+    setItemss(i => [...i, e._id])
 
     setItemName(i => [...i, e])
   };
@@ -153,14 +151,23 @@ function Login() {
             <span style={{ fontWeight: "bold", color: "red" }}>{passerr}</span>
           )}
           <br />
-          <button onClick={handleSubmit} className="btn btn-primary">
+          <Link to='/ProductList' > <button  onClick={handleSubmit} className="btn btn-primary">
             Login
-          </button>
+          </button></Link>
         </div>
 
       )}
       {submit && (
+      
         <div>
+          {/* <div>
+            <Router>
+              <Link to='/order'>order</Link>
+              <Routes>
+                <Route path='/order' element={<Order />} ></Route>
+              </Routes>
+            </Router>
+          </div> */}
           <div>Welcome:{userName}</div>
           <div className="product">
             {datas?.map((d, i) => (
@@ -185,7 +192,7 @@ function Login() {
 
           <div className="text-center top">
             <button onClick={handlePlace} className="btn btn-primary">
-              Place Oder
+              Place Order
             </button>
 
           </div>
@@ -202,19 +209,21 @@ function Login() {
             }
           </div>
 
+          <div>
+            {
+         
+                <div>
+                  <p>{orders?.data?.items }</p>
+                </div>
+            }
 
+          </div>
         </div>
+        
       )}
-      {/* <div>
-{items && (
-  orders.map(b=>
-    <div>
-      <p>{b.items}</p>
-        </div>)
-)}
-​
-      </div> */}
+     
     </div>
+    
   );
 }
 
